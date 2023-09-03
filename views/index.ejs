@@ -1,45 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>AnimeHub</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Rubik+Iso&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Nav Bar -->
+<%- include("partials/header.ejs"); %>
+      <!-- Home page -->
 
-    <div class="container my-3 px-3 py-3 bg-secondary rounded-4">
-      <div class="row">
-        <div id="nav-title" class="col-6 nav-item">
-          <a href="#">AnimeHub</a>
-        </div>
-        <div id="nav-pages" class="col-6 nav-item">
-          <a href="#">Home</a>
-          <a href="#">Top News</a>
-          <a href="#">Characters</a>
+      <!-- Jumbo Section -->
+
+      <div id="jumbotron" class="container my-5 py-5 text-center">
+        <h1>Immerse Yourself in Anime Magic!</h1>
+        <p class="col-lg-8 mx-auto lead">
+          Anime isn't just entertainment; it's a passport to adventure, a
+          journey through emotions, and a gateway to endless creativity. Dive in
+          and let the anime magic sweep you away! 🌟
+        </p>
+      </div>
+
+      <!-- Recommendations -->
+
+      <% if (locals.res) { %>
+      <div class="container">
+        <h3 class="mb-4">Recommendations</h3>
+        <div class="row row-gap-5">
+          <% for (let i = 0; i < 9; i++) { %>
+          <div class="col-4">
+            <div class="card shadow-sm px-2 py-2">
+              <div class="row">
+                <div class="col-6">
+                  <img src="<%= res.data[i].entry[0].images.jpg.image_url %>"
+                  alt="anime-poster" width="100%" height="225" />
+                  <p class="anime-title text-center"><%= res.data[i].entry[0].title %></p>
+                </div>
+                <div class="col-6">
+                  <img
+                    src="<%= res.data[i].entry[1].images.jpg.image_url %>"
+                    alt="anime-poster"
+                    width="100%"
+                    height="225"
+                  />
+                  <p class="anime-title text-center"><%= res.data[i].entry[1].title %></p>
+                </div>
+              </div>
+              <div class="card-body" height="200px">
+                <p class="card-text">
+                  <%= res.data[i].content %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <% } %>
         </div>
       </div>
-    </div>
+      <% } %>
 
-    <main>
-      <!-- Home page -->
-      <h1>This is home page.</h1>
-    </main>
+      <!-- Error-Handling -->
+      <% if (locals.error) { %>
+        <div class="container">
+          <h1><%= error %></h1>
+        </div>
+      <% } %>
 
-    <footer>
-      <p>© 2023</p>
-    </footer>
-  </body>
-</html>
+      <%- include("partials/footer.ejs"); %>
