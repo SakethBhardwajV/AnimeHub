@@ -23,6 +23,23 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/characters", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://api.jikan.moe/v4/top/characters?page=1&limit=20"
+    );
+    const result = response.data;
+    res.render("characters.ejs", {
+      res: result,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.render("index.ejs", {
+      error: error.message,
+    });
+  }
+});
+
 app.listen(port, () => {
   console.log("Server running on port " + port);
 });

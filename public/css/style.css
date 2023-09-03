@@ -39,3 +39,9 @@ body {
 }
 
 
+/* ---------------------------------Character Page--------------------------------------- */
+.character-card {
+  margin: auto;
+  border: white solid 1px;
+}
+
